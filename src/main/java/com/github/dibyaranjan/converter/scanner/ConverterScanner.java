@@ -3,7 +3,10 @@ package com.github.dibyaranjan.converter.scanner;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -23,6 +26,7 @@ import com.github.dibyaranjan.infra.converter.vo.SourceTargetValue;
  * @author Dibya
  */
 public class ConverterScanner {
+	private static final Logger logger = Logger.getLogger(ConverterScanner.class.getCanonicalName());
 
 	/**
 	 * Find all the classes in the base-package, check if it is marked with
@@ -52,7 +56,7 @@ public class ConverterScanner {
 			}
 			return converterRegistry;
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, ExceptionUtils.getFullStackTrace(e));
 		}
 		return null;
 	}
